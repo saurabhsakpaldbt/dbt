@@ -13,8 +13,7 @@ orders as (
 customer_orders as (
 
     select
-        customer_id,
-
+        id,
         min(order_date) as first_order_date,
         max(order_date) as most_recent_order_date,
         count(order_id) as number_of_orders
@@ -28,7 +27,7 @@ customer_orders as (
 final as (
 
     select
-        customers.customer_id,
+        customers.id,
         customers.first_name,
         customers.last_name,
         customer_orders.first_order_date,
@@ -37,7 +36,7 @@ final as (
 
     from customers
 
-    left join customer_orders using (customer_id)
+    left join customer_orders on customers.id = customer_orders.id
 
 )
 
